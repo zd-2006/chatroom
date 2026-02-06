@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 1. 定义控制台输出格式 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 核心：配置彩色输出的编码器 -->
+        <encoder>
+            <!--
+                格式详解：
+                %d{...}      : 时间
+                %thread      : 线程名
+                %highlight   : 高亮显示日志级别 (ERROR变红, WARN变黄, INFO变蓝)
+                %cyan        : 把类名变成青色
+                %msg         : 日志内容
+                %n           : 换行
+            -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 2. 日志级别控制 -->
+
+    <!-- 这里的 name 要填你自己的包名，比如 com.chatroom -->
+    <!-- 设置为 DEBUG 可以看到 MyBatis 的 SQL 语句和参数 -->
+    <logger name="com.chatroom" level="DEBUG" />
+
+    <!-- MyBatis 的日志级别，想看 SQL 这里必须是 DEBUG -->
+    <logger name="org.apache.ibatis" level="DEBUG" />
+
+    <!-- 3. 全局日志配置 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

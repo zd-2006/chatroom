@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+    <!-- 设置项：非常重要，建议保留 -->
+    <settings>
+        <!-- 告诉 MyBatis 使用 SLF4J/Logback 打印日志，这样才会有颜色 -->
+        <setting name="logImpl" value="SLF4J"/>
+        <!-- 开启驼峰命名自动映射（例如数据库字段 user_name 自动对应 Java 属性 userName） -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 别名设置（可选）：有了这个，Mapper里写 resultType="User" 就行，不用写包全名 -->
+    <typeAliases>
+        <!-- 扫描实体类所在的包，假设你的实体类以后放在 com.chatroom.entity 下 -->
+        <!-- <package name="com.chatroom.entity"/> -->
+    </typeAliases>
+
+    <!-- 数据库环境配置 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用 JDBC 的事务管理 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库连接池 -->
+            <dataSource type="POOLED">
+                <!-- 使用 ${} 语法引用 db.properties 里的值 -->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 注册 Mapper XML 文件 -->
+    <mappers>
+        <!-- 以后每写一个 Mapper.xml 都要在这里注册 -->
+         <mapper resource="mapper/UserMapper.xml"/>
+
+    </mappers>
+
+</configuration>
